@@ -62,7 +62,7 @@ import {
   isAwsCodeArtifactRegistry,
   Release,
 } from "../release";
-import { filteredRunsOnOptions } from "../runner-options";
+import { filteredRunsOnOptions, GroupRunnerOptions } from "../runner-options";
 import type { Task } from "../task";
 import { deepMerge, multipleSelected, normalizePersistedPath } from "../util";
 import { ensureRelativePathStartsWithDot } from "../util/path";
