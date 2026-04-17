@@ -436,6 +436,21 @@ export interface BuildWorkflowOptions extends BuildWorkflowCommonOptions {
    * @default - value of `mutableBuild`
    */
   readonly mutableInstall?: boolean;
+
+  /**
+   * Github Runner selection labels
+   * @default ["ubuntu-latest"]
+   * @description Defines a target Runner by labels
+   * @throws {Error} if both `runsOn` and `runsOnGroup` are specified
+   */
+  readonly runsOn?: string[];
+
+  /**
+   * Github Runner Group selection options
+   * @description Defines a target Runner Group by name and/or labels
+   * @throws {Error} if both `runsOn` and `runsOnGroup` are specified
+   */
+  readonly runsOnGroup?: GroupRunnerOptions;
 }
 
 /**
@@ -740,8 +755,8 @@ export class NodeProject extends GitHubProject {
         }).concat(buildWorkflowOptions.preBuildSteps ?? []),
         postBuildSteps: [...(options.postBuildSteps ?? [])],
         ...filteredRunsOnOptions(
-          options.workflowRunsOn,
-          options.workflowRunsOnGroup,
+          buildWorkflowOptions.runsOn ?? options.workflowRunsOn,
+          buildWorkflowOptions.runsOnGroup ?? options.workflowRunsOnGroup,
         ),
       });
 
